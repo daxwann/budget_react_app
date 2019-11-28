@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom'
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 
@@ -12,7 +12,7 @@ const Dashboard = () => {
   )
 }
 
-const AddExpense= () => {
+const AddExpense = () => {
   return (
     <div>
       this is new expense page
@@ -36,13 +36,37 @@ const Help = () => {
   )
 }
 
+const NotFound = () => {
+  return (
+    <div>
+      404 - <Link to="/">Go Home</Link>
+    </div>
+  )
+}
+
+const Header = () => {
+  return (
+    <header>
+      <h1>Expensify</h1>
+      <NavLink to="/" activeClassName="active" exact={true}>Home</NavLink>
+      <NavLink to="/new" activeClassName="active">New</NavLink>
+      <NavLink to="/edit" activeClassName="active">Edit</NavLink>
+      <NavLink to="/help" activeClassName="active">Help</NavLink>
+    </header>
+  )
+}
+
 const routes = (
   <BrowserRouter>
     <div>
-      <Route path="/" component={Dashboard} exact={true}/>
-      <Route path="/new" component={AddExpense}/>
-      <Route path="/edit" component={EditExpense}/>
-      <Route path="/help" component={Help}/>
+      <Header />
+      <Switch>
+        <Route path="/" component={Dashboard} exact={true} />
+        <Route path="/new" component={AddExpense} />
+        <Route path="/edit" component={EditExpense} />
+        <Route path="/help" component={Help} />
+        <Route component={NotFound} />
+      </Switch>
     </div>
   </BrowserRouter>
 )
